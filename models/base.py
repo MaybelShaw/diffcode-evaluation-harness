@@ -6,5 +6,9 @@ class BaseModel(ABC):
         pass
 
     @abstractmethod
+    def build_prompt(self,input):
+        pass
+
+    @abstractmethod
     def generate(self,prompt,**kwargs):
         pass
