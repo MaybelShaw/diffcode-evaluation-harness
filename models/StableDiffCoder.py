@@ -1,4 +1,4 @@
-from .base import BaseModel
+from base import BaseModel
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 
@@ -7,7 +7,7 @@ class StableDiffCoder(BaseModel):
     def __init__(self, model_path=None, device='cpu'):
         super().__init__()
         self.device = device
-        self.model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True).to(self.device).eval()
+        self.model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True, torch_dtype=torch.bfloat16).to(self.device).eval()
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
     def generate(self, prompt, steps=64, gen_length=64, block_length=4, temperature=0.,
@@ -25,3 +25,10 @@ class StableDiffCoder(BaseModel):
 
 if __name__ == '__main__':
     stable_diff_coder = StableDiffCoder('/nvme3n1/XiaoMBworks/models/Stable-DiffCoder-8B-Base', device='cuda')
+
+    prefix = "def add_numbers(a, b):\n    "
+    suffix = "\n    return result"
+
+    # Combine prefix and suffix following the FIM format
+    prompt = '<[fim-suffix]>' + suffix + '<[fim-prefix]>' + prefix + '<[fim-middle]>'
+    print(stable_diff_coder.generate(prompt))
