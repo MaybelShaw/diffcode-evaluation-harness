@@ -7,8 +7,12 @@ class StableDiffCoder(BaseModel):
     def __init__(self, model_path=None, device='cpu'):
         super().__init__()
         self.device = device
-        self.model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True, torch_dtype=torch.bfloat16).to(self.device).eval()
+        self.model = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True,
+                                                          torch_dtype=torch.bfloat16).to(self.device).eval()
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+
+    def build_prompt(self, input):
+        return '<[fim-suffix]>' + input['suffix'] + '<[fim-prefix]>' + input['prefix'] + '<[fim-middle]>'
 
     def generate(self, prompt, steps=64, gen_length=64, block_length=4, temperature=0.,
                  remasking='low_confidence', shift=False, threshold=None,
@@ -29,6 +33,6 @@ if __name__ == '__main__':
     prefix = "def add_numbers(a, b):\n    "
     suffix = "\n    return result"
 
-    # Combine prefix and suffix following the FIM format
-    prompt = '<[fim-suffix]>' + suffix + '<[fim-prefix]>' + prefix + '<[fim-middle]>'
+    prompt = stable_diff_coder.build_prompt({'prefix': prefix, 'suffix': suffix})
+
     print(stable_diff_coder.generate(prompt))
