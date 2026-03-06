@@ -1,4 +1,4 @@
-from base import BaseModel
+from .base import BaseModel
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 

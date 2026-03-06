@@ -12,15 +12,15 @@ class Task(ABC):
         return []
 
     @abstractmethod
-    def get_input(self):
+    def get_input(self,doc):
         pass
 
     @abstractmethod
-    def get_reference(self):
+    def get_reference(self,doc):
         pass
 
     @abstractmethod
-    def postprocess_generation(self):
+    def postprocess_generation(self,generation):
         pass
 
     @abstractmethod
