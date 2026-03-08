@@ -1,6 +1,6 @@
 from .base import Executor
 from .safe_subprocess import run
-from executor_registry import register_executor
+from .executor_registry import register_executor
 
 
 @register_executor("java")

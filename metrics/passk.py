@@ -1,5 +1,5 @@
 import math
-from base import Metric
+from .base import Metric
 
 
 class PassK(Metric):

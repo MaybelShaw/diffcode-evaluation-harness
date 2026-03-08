@@ -5,6 +5,7 @@ def register_executor(language):
     def decorator(cls):
         EXECUTOR_REGISTRY[language] = cls
         return cls
+    return decorator
 
 
 def get_executor(language):
