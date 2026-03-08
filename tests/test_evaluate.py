@@ -24,7 +24,7 @@ def test_evaluate():
         results.append(executor.run(path))
         workspace.cleanup()
     pprint(results)
-    results = [r['returncode'] == 0 for r in results]
+    results = [r.returncode == 0 for r in results]
     pass_k = PassK(1)
     print(pass_k.evaluate(results))
 
