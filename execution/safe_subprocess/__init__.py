@@ -15,7 +15,7 @@ def run(cmd, timeout=10):
         return {"timeout": True}
 
     return {"timeout": False,
-            "exitcode": p.returncode,
+            "returncode": p.returncode,
             "stdout": stdout,
             "stderr": stderr
             }
