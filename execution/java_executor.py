@@ -6,6 +6,8 @@ from executor_registry import register_executor
 @register_executor("java")
 class JavaExecutor(Executor):
 
+    suffix = ".java"
+
     def run(self, path):
         compile_result = run(["javac", str(path)])
 
