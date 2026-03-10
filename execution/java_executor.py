@@ -17,4 +17,4 @@ class JavaExecutor(Executor):
 
         classname = path.stem
 
-        return run(["java", "-cp", str(path.parent), classname])
+        return run(["java", "-ea", "-cp", str(path.parent), classname])

@@ -14,7 +14,7 @@ class StableDiffCoder(BaseModel):
     def build_prompt(self, input):
         return '<[fim-suffix]>' + input['suffix'] + '<[fim-prefix]>' + input['prefix'] + '<[fim-middle]>'
 
-    def generate(self, prompt, steps=64, gen_length=64, block_length=4, temperature=0.,
+    def generate(self, prompt, steps=64, gen_length=64, block_length=4, temperature=0.2,
                  remasking='low_confidence', shift=False, threshold=None,
                  ):
         input_ids = self.tokenizer(prompt)['input_ids']
